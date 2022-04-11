@@ -1,0 +1,103 @@
+﻿<Page x:Class="LibraryRegistrationSystem.Pages.ReadersPages.ReadersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LibraryRegistrationSystem.Pages.ReadersPages"
+      mc:Ignorable="d" FontSize="16" d:DesignHeight="800" d:DesignWidth="1600"
+      Title="Читатели">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+            <StackPanel Orientation="Vertical"
+                        Margin="10">
+                <TextBlock Text="ФИО" Margin="10"/>
+                <TextBox x:Name="txtName" TextChanged="txtName_TextChanged" MinWidth="300" Margin="10" Background="White"
+                             BorderThickness="2"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Margin="10">
+                <TextBlock Margin="10" Text="Год рождения"/>
+                <TextBox x:Name="txtYear" TextChanged="txtYear_TextChanged" MinWidth="120" Margin="10" Background="White" BorderThickness="2"/>
+            </StackPanel>
+
+            <Button HorizontalAlignment="Right" Content="Сбросить поиск" Margin="30,0,0,0"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button HorizontalAlignment="Right"
+                Content="Посмотреть подробнее" Margin="2" x:Name="btnLookIn" Click="btnLookIn_Click"/>
+            <Button HorizontalAlignment="Right"
+                Content="Добавить" Margin="2" x:Name="btnAddNew" Click="btnAddNew_Click"/>
+            <Button HorizontalAlignment="Right"
+                Content="Удалить" Margin="2" x:Name="btnRemove" Click="btnRemove_Click"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <Button x:Name="btnUpdate" Click="btnUpdate_Click" Content="Обновить данные" HorizontalAlignment="Left" Margin="10"/>
+            <DataGrid FontSize="20" x:Name="dataReaders" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" MinWidth="60" Binding="{Binding ID}"/>
+                    <DataGridTextColumn MinWidth="30" Binding="{Binding hasNote}"/>
+                    <DataGridTextColumn Header="ФИО" Width="1*" Binding="{Binding FullName}"/>
+                    <DataGridTextColumn Header="Дата рождения" MinWidth="200" Binding="{Binding Birthday, StringFormat=\{0:dd.MM.yyyy\}}"/>
+                    <DataGridTextColumn Header="Дата регистрации" MinWidth="200" Binding="{Binding RegistrationDate, StringFormat=\{0:dd.MM.yyyy\}}"/>
+
+                    <DataGridTemplateColumn Width="160">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button FontSize="20" Content="Изменить" x:Name="btnEdit" Click="btnEdit_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+
+                <!-- Заметки о читателе при нажатии на строку -->
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <DockPanel HorizontalAlignment="Left">
+                            <Grid Margin="0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition MinWidth="200"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Style="{StaticResource txtUsual}" Text="Телефон:"/>
+                                <TextBlock Style="{StaticResource txtUsual}" Text="{Binding Phone}"
+                                       Grid.Column="2"/>
+
+                                <TextBlock Style="{StaticResource txtUsual}" Text="Электронная почта:" Grid.Row="1"/>
+                                <TextBlock Style="{StaticResource txtUsual}" Text="{Binding Email}"
+                                       Grid.Column="2" Grid.Row="1"/>
+
+                                <TextBlock Style="{StaticResource txtUsual}" Text="Адрес:" Grid.Row="2"/>
+                                <TextBlock Style="{StaticResource txtUsual}" Text="{Binding Address}"
+                                       Grid.Column="2" Grid.Row="2"/>
+
+                                <TextBlock Style="{StaticResource txtUsual}" Text="Другая контактная информация:"  Grid.Row="3"/>
+                                <TextBlock Style="{StaticResource txtUsual}" Text="{Binding ContactDetails}"
+                                       Grid.Column="2"  Grid.Row="3"/>
+
+                                <TextBlock Style="{StaticResource txtUsual}" Text="Примечание:" Grid.Row="4"/>
+                                <TextBlock Style="{StaticResource txtUsual}" Text="{Binding Notes}"
+                                       Grid.Column="2"  Grid.Row="4"/>
+                            </Grid>
+                        </DockPanel>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Page>
